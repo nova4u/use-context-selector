@@ -1,4 +1,4 @@
-# use-context-with-selectors
+# use-context-selector
 
 A lightweight React library for creating context with fine-grained selector-based subscriptions, preventing unnecessary re-renders.
 
@@ -31,13 +31,13 @@ A lightweight React library for creating context with fine-grained selector-base
 ## Installation
 
 ```bash
-pnpm add @dmrk/use-context-with-selectors
+pnpm add @dmrk/use-context-selector
 ```
 
 ## Quick Start
 
 ```tsx
-import { createStore, createUseStore } from '@dmrk/use-context-with-selectors';
+import { createStore, createUseStore } from '@dmrk/use-context-selector';
 
 // 1. Create your store
 const store = createStore({
@@ -138,7 +138,7 @@ A hook function that accepts:
 **Example:**
 
 ```tsx
-import shallow from '@dmrk/use-context-with-selectors/shallow';
+import shallow from '@dmrk/use-context-selector/shallow';
 
 const useStore = createUseStore(store);
 
@@ -165,7 +165,7 @@ The selected value
 **Example:**
 
 ```tsx
-import shallow from '@dmrk/use-context-with-selectors/shallow';
+import shallow from '@dmrk/use-context-selector/shallow';
 
 function MyComponent() {
   const count = useStoreSelector(store.context, state => state.count);
@@ -179,7 +179,7 @@ function MyComponent() {
 Type utility to extract the State type from a store instance.
 
 ```tsx
-import type { InferState } from '@dmrk/use-context-with-selectors';
+import type { InferState } from '@dmrk/use-context-selector';
 
 const store = createStore({ count: 0, name: 'John' });
 type StoreState = InferState<typeof store>; // { count: number; name: string }
@@ -303,7 +303,7 @@ Use `InferState<T>` to extract the state type from a store instance.
 - ❌ Requires manual optimization with useMemo/memo
 - ✅ Built into React
 
-**use-context-with-selectors:**
+**use-context-selector:**
 
 - ✅ Only re-renders when selected values change
 - ✅ Automatic optimization
@@ -318,7 +318,7 @@ Use `InferState<T>` to extract the state type from a store instance.
 - ❌ Larger bundle size
 - ❌ More complex API
 
-**use-context-with-selectors:**
+**use-context-selector:**
 
 - ✅ Smaller bundle size
 - ✅ Simpler API
