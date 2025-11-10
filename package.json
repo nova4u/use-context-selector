@@ -1,0 +1,58 @@
+{
+  "name": "@dmrk/use-context-selector",
+  "version": "0.1.3",
+  "author": "Denis Marushchak <denis@dmrk.dev>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nova4u/use-context-selector.git"
+  },
+  "homepage": "https://github.com/nova4u/use-context-selector",
+  "keywords": [
+    "react",
+    "context",
+    "selectors"
+  ],
+  "description": "A library for using context with selectors",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./shallow": {
+      "import": "./dist/shallow.js",
+      "types": "./dist/utils/shallow.d.ts"
+    }
+  },
+  "type": "module",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "rollup -c rollup.config.mts",
+    "watch": "rollup -c -w rollup.config.mts",
+    "format": "prettier -c \"**/*.{ts,tsx,json,md}\"",
+    "test": "vitest",
+    "version:bump": "node scripts/version-bump.js"
+  },
+  "license": "ISC",
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@testing-library/react": "^16.3.0",
+    "@types/bun": "^1.3.2",
+    "@types/react": "^19.2.2",
+    "happy-dom": "^20.0.10",
+    "prettier": "^3.6.2",
+    "prompts": "^2.4.2",
+    "rollup": "^4.52.5",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "tslib": "^2.8.1",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.7"
+  }
+}
