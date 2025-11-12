@@ -10,9 +10,14 @@
   "keywords": [
     "react",
     "context",
-    "selectors"
+    "selectors",
+    "hooks",
+    "state-management",
+    "performance",
+    "typescript",
+    "react-context"
   ],
-  "description": "A library for using context with selectors",
+  "description": "Lightweight React library for context with fine-grained selector-based subscriptions, preventing unnecessary re-renders",
   "exports": {
     ".": {
       "import": "./dist/index.js",
