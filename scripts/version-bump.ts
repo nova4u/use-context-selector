@@ -4,12 +4,21 @@ import fs from 'node:fs';
 import { execSync } from 'node:child_process';
 import prompts from 'prompts';
 
-function getCurrentVersion() {
-  const packageJson = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
+type BumpType = 'major' | 'minor' | 'patch';
+
+interface PackageJson {
+  version: string;
+  [key: string]: unknown;
+}
+
+function getCurrentVersion(): string {
+  const packageJson = JSON.parse(
+    fs.readFileSync('./package.json', 'utf8')
+  ) as PackageJson;
   return packageJson.version;
 }
 
-function bumpVersion(version, type) {
+function bumpVersion(version: string, type: BumpType): string {
   const parts = version.split('.').map(Number);
 
   switch (type) {
@@ -32,8 +41,10 @@ function bumpVersion(version, type) {
   return parts.join('.');
 }
 
-function updatePackageJson(newVersion) {
-  const packageJson = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
+function updatePackageJson(newVersion: string): void {
+  const packageJson = JSON.parse(
+    fs.readFileSync('./package.json', 'utf8')
+  ) as PackageJson;
   packageJson.version = newVersion;
   fs.writeFileSync(
     './package.json',
@@ -46,7 +57,7 @@ function updatePackageJson(newVersion) {
   }
 }
 
-function createAndPushTag(version, bumpType) {
+function createAndPushTag(version: string, bumpType: BumpType): void {
   const tag = `v${version}`;
 
   try {
@@ -59,12 +70,14 @@ function createAndPushTag(version, bumpType) {
     console.log(`🚀 Pushed tag: ${tag}`);
     console.log('📦 GitHub workflow will now deploy to production!');
   } catch (error) {
-    console.error(`❌ Error creating/pushing tag: ${error.message}`);
+    if (error instanceof Error) {
+      console.error(`❌ Error creating/pushing tag: ${error.message}`);
+    }
     process.exit(1);
   }
 }
 
-async function main() {
+async function main(): Promise<void> {
   try {
     const currentVersion = getCurrentVersion();
     console.log(`\n📦 Current version: ${currentVersion}\n`);
@@ -88,7 +101,7 @@ async function main() {
       return;
     }
 
-    const bumpType = response.bumpType;
+    const bumpType = response.bumpType as BumpType;
     const newVersion = bumpVersion(currentVersion, bumpType);
     console.log(`\n${currentVersion} → ${newVersion} (${bumpType})\n`);
 
@@ -123,7 +136,9 @@ async function main() {
     console.log(`🏷️  Tag v${newVersion} pushed to origin`);
     console.log('🚀 GitHub Actions workflow triggered for deployment\n');
   } catch (error) {
-    console.error(`\n❌ Error: ${error.message}`);
+    if (error instanceof Error) {
+      console.error(`\n❌ Error: ${error.message}`);
+    }
     process.exit(1);
   }
 }
